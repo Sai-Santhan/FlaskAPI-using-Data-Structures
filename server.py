@@ -1,3 +1,4 @@
+import random
 from datetime import datetime
 from sqlite3 import Connection as SQLite3Connection
 
@@ -6,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
 
+import binary_search_tree
 import hash_table
 import linked_list
 
@@ -158,6 +160,31 @@ def create_blog_post(user_id):
     db.session.add(new_blog_post)
     db.session.commit()
     return jsonify({"message": "New Blog post created"}), 200
+
+
+@app.route("/blog_post/<blog_post_id>", methods=["GET"])
+def get_all_blog_posts(blog_post_id):
+    blog_posts = BlogPost.query.all()
+    random.shuffle(blog_posts)
+
+    bst = binary_search_tree.BinarySearchTree()
+
+    for post in blog_posts:
+        bst.insert(
+            {
+                "id": post.id,
+                "title": post.title,
+                "body": post.body,
+                "user_id": post.user_id,
+            }
+        )
+
+    post = bst.search(blog_post_id)
+
+    if not post:
+        return jsonify({"message": "Post not found"})
+
+    return jsonify(post), 200
 
 
 if __name__ == "__main__":

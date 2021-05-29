@@ -27,7 +27,7 @@
         "sqlite3"
     ],
     "terminal.integrated.fontSize": 15,
-    "terminal.integrated.fontFamily": "'Cascadia Code'",
+    "terminal.integrated.fontFamily": "Cascadia Code PL",
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": true,
