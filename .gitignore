@@ -5,4 +5,4 @@ instance/
 
 venv/
 
-*.db
+sqlitedb.db
